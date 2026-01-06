@@ -23,33 +23,43 @@ export default function DeleteModal({
 
   const handleConfirm = async () => {
     setLoading(true);
-    await onConfirm();        // wait for delete API
+    await onConfirm();
     setLoading(false);
-    onClose();                // close after success
+    onClose();
   };
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center
-        bg-black/30 transition-opacity duration-200
+      className={`fixed inset-0 z-50 flex items-center justify-center px-4
+        bg-black/40 transition-opacity duration-200
         ${isOpen ? "opacity-100" : "opacity-0"}`}
+      onClick={onClose}
     >
       <div
-        className={`bg-white rounded-xl shadow-xl w-[90%] max-w-sm p-6
-          transform transition-all duration-200
+        className={`bg-white rounded-xl shadow-xl w-full max-w-sm
+          p-5 sm:p-6 transform transition-all duration-200
           ${isOpen ? "scale-100" : "scale-95"}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-lg font-semibold mb-3">{title}</h2>
+        {/* Title */}
+        <h2 className="text-base sm:text-lg font-semibold mb-2">
+          {title}
+        </h2>
 
-        <p className="text-sm text-gray-600 mb-6">{message}</p>
+        {/* Message */}
+        <p className="text-sm sm:text-base text-gray-600 mb-6">
+          {message}
+        </p>
 
-        <div className="flex justify-end gap-3">
+        {/* Actions */}
+        <div className="flex flex-col-reverse sm:flex-row justify-end gap-3">
           <button
             disabled={loading}
             onClick={onClose}
-            className={`px-4 py-2 rounded-lg border transition
-              ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}`}
+            className={`w-full sm:w-auto px-4 py-2 rounded-lg border transition
+              ${loading
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:bg-gray-100"}`}
           >
             Cancel
           </button>
@@ -57,7 +67,8 @@ export default function DeleteModal({
           <button
             disabled={loading}
             onClick={handleConfirm}
-            className={`px-4 py-2 rounded-lg text-white transition flex items-center gap-2
+            className={`w-full sm:w-auto px-4 py-2 rounded-lg text-white transition
+              flex items-center justify-center gap-2
               ${loading
                 ? "bg-red-400 cursor-not-allowed"
                 : "bg-red-500 hover:bg-red-600"}`}

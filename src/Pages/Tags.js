@@ -370,14 +370,22 @@ const handleTagSelect = (categoryName, tagValue) => {
   
 
   return (
-   <div className="min-h-screen p-6 bg-indigo-100 space-y-6">
+   <div className="min-h-screen bg-indigo-100 space-y-6
+                px-3 py-4
+                sm:px-4 sm:py-6
+                lg:px-8">
+
     
 
       {/* Heading */}
-     <div className=" p-4  flex justify-between items-center">
-  <div>
-    <h1 className="text-3xl font-bold text-gray-800">Tag Management</h1>
-    <p className="text-gray-500 text-base mt-1">
+    <div className="p-4 flex items-center justify-between gap-2">
+   <div className="min-w-0">
+     <h1 className="font-bold text-gray-800
+                   text-lg sm:text-2xl lg:text-3xl
+                   ">Tag Management</h1>
+     <p className="text-gray-500
+                  text-xs sm:text-sm
+                  ">
       Manage tag categories and values for Examitra Ads
     </p>
   </div>
@@ -423,7 +431,11 @@ const handleTagSelect = (categoryName, tagValue) => {
 
 
 <button
-  className="bg-black font-semibold text-white px-5 py-3 rounded-lg shadow text-sm"
+  className="bg-black text-white font-semibold
+               px-3 py-2 sm:px-5 sm:py-3
+               text-xs sm:text-sm
+               rounded-lg shadow
+               whitespace-nowrap"
   onClick={() => {
     setModalType("category");
     setNewCategory("");
@@ -449,18 +461,27 @@ const handleTagSelect = (categoryName, tagValue) => {
   placeholder="Search tags across all categories..."
   value={searchQuery}
   onChange={(e) => setSearchQuery(e.target.value)}
-  className="flex h-10 w-full rounded-md border border-input bg-background px-10 
-             py-2 text-base text-foreground placeholder:text-muted-foreground 
-             focus:outline-none focus:ring-black focus:ring-2 "
+  className="h-9 sm:h-10 w-full rounded-md border px-10
+             text-sm sm:text-base
+             focus:outline-none focus:ring-black focus:ring-2"
 />
 
     </div>
     {Object.keys(selectedTags).length > 0 && (
-  <div className="bg-gray-200 bg-opacity-30 border border-black rounded-xl p-6">
-    <div className="flex p-1 justify-between items-center mb-2">
-      <h3 className="font-semibold text-lg">Selected Tags Summary</h3>
+ <div className="bg-gray-200 bg-opacity-30 border border-black rounded-xl
+                p-3 sm:p-6">
+    <div className="flex items-center justify-between mb-2 gap-2">
+     <h3 className="font-semibold text-gray-800
+                   text-sm sm:text-lg
+                   truncate">Selected Tags Summary</h3>
       <button
-        className="text-sm font-medium"
+        className="font-medium text-gray-700
+                 text-xs sm:text-sm
+                 px-2 py-1 sm:px-3 sm:py-1.5
+                 rounded-md
+                 hover:bg-black hover:text-white
+                 transition
+                 whitespace-nowrap"
         onClick={() => setSelectedTags({})}
       >
         Clear All
@@ -472,7 +493,9 @@ const handleTagSelect = (categoryName, tagValue) => {
         <p className="text-sm font-medium mb-1">{categoryName}</p>
         <div className="flex flex-wrap gap-2">
           {tags.map((tag) => (
-           <span className="px-3 py-[2px] rounded-full bg-white text-black text-sm">
+           <span className="px-3 py-[2px] rounded-full bg-white text-black
+                 text-xs sm:text-sm">
+
   {tag}
 </span>
 
@@ -511,19 +534,20 @@ const handleTagSelect = (categoryName, tagValue) => {
       }`}
     >
       {/* Card Header */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
+      <div className="flex  gap-3 sm:flex-row sm:items-center justify-between mb-3">
+        <div className="flex sm:flex-row  items-center gap-2">
           <GripVertical className="text-gray-500 h-5 w-5" />
-          <h3 className="font-semibold text-lg">{category.title}</h3>
-          <span className="text-xs font-semibold text-gray-900 px-2 py-[3px] border border-gray-300 rounded-2xl">
+          <h3 className="font-semibold text-base sm:text-lg">{category.title}</h3>
+          <span className="text-xs font-semibold text-gray-900 px-2 py-[3px] 
+                     border border-gray-300 rounded-2xl">
             {category.tags.length} tags
           </span>
         </div>
         <div className="flex items-center gap-1">
         <button
   className="flex items-center gap-2 px-3 py-2 rounded-lg 
-             font-medium text-sm transition-all duration-150 
-             hover:bg-blue-50 hover:scale-105 active:scale-95"
+                 font-medium text-sm transition-all duration-150 
+                 hover:bg-blue-50 hover:scale-105 active:scale-95"
   onClick={() => {
     setModalType("tag");
     setNewTag("");
@@ -531,41 +555,42 @@ const handleTagSelect = (categoryName, tagValue) => {
     setOpenModal(true);
   }}
 >
-  <Plus className="w-4 h-4" /> Add Tag
+  <Plus className="w-4 h-4 pointer-events-none" /> Add Tag
 </button>
 
   
          {/* Edit Category Icon */}
-  <div
-    className="flex items-center justify-center h-10 w-10 rounded-lg 
-               hover:bg-blue-50 cursor-pointer transition-all duration-150 
-               hover:scale-105 active:scale-95"
+  <button
+    className="flex items-center justify-center h-9 w-9 sm:h-10 sm:w-10 
+                 rounded-lg hover:bg-blue-50 cursor-pointer 
+                 transition-all duration-150 hover:scale-105 active:scale-95"
     onClick={() => handleEditCategory(category)}
   >
-    <Pencil className="h-5 w-5 text-gray-700" />
-  </div>
+    <Pencil className="h-5 w-5 text-gray-700 pointer-events-none" />
+  </button>
 
 
-         <div
+         <button
   onClick={() => toggleCategoryCollapse(category.id)}
-  className="p-2 rounded-lg hover:bg-blue-50 cursor-pointer transition-all duration-150
-             active:scale-95 flex items-center justify-center"
+  className="p-2 rounded-lg hover:bg-blue-50 cursor-pointer 
+                 transition-all duration-150 active:scale-95 
+                 flex items-center justify-center"
 >
   <ChevronUp
-    className={`h-5 w-5 transform transition-transform duration-300
+    className={`h-5 w-5 pointer-events-none transform transition-transform duration-300
       ${collapsedCategories[category.id] ? "rotate-180" : "rotate-0"}`}
   />
-</div>
+</button>
 
-<div
+<button
   onClick={() => {
     setDeleteCategoryId(category.id);
     setOpenDeleteModal(true);
   }}
   className="p-2 rounded-lg hover:bg-blue-50 cursor-pointer transition-all duration-150 flex items-center justify-center active:scale-95"
 >
-  <Trash2 className="h-5 w-5 text-red-500" />
-</div>
+  <Trash2 className="h-5 w-5 pointer-events-none text-red-500" />
+</button>
 
 <DeleteModal
   isOpen={openDeleteModal}
@@ -597,9 +622,15 @@ const handleTagSelect = (categoryName, tagValue) => {
       <span className="whitespace-nowrap text-xs font-semibold">{tag.value}</span>
 
       {/* icons stay same */}
-      <div className="flex items-center gap-2 ml-2 opacity-0 group-hover:opacity-100">
+      <div
+  className="flex items-center gap-2 ml-2
+             opacity-100 sm:opacity-0
+             sm:group-hover:opacity-100
+             transition-opacity"
+>
+
         {/* edit */}
-        <div
+        <button
           className="flex items-center justify-center p-[2px] rounded-lg
                      hover:bg-blue-50 transition-all hover:scale-110"
           onClick={(e) => {
@@ -610,11 +641,11 @@ const handleTagSelect = (categoryName, tagValue) => {
             setOpenModal(true);
           }}
         >
-          <Pencil className="h-4 w-4 text-gray-700" />
-        </div>
+          <Pencil className="h-4 w-4 text-gray-700 pointer-events-none" />
+        </button>
 
         {/* delete */}
-        <div
+        <button
           className="flex items-center justify-center p-[2px] rounded-lg
                      hover:bg-blue-50 transition-all hover:scale-110"
           onClick={(e) => {
@@ -623,8 +654,8 @@ const handleTagSelect = (categoryName, tagValue) => {
             setOpenDeleteModal(true);
           }}
         >
-          <Trash2 className="h-4 w-4 text-red-500" />
-        </div>
+          <Trash2 className="h-4 w-4 text-red-500 pointer-events-none" />
+        </button>
       </div>
     </div>
   );

@@ -8,69 +8,82 @@ export default function Modal({
   setValue,
   onSubmit,
   onClose,
-  buttonText
+  buttonText,
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
-    setIsLoading(true); // start loader
+    setIsLoading(true);
     try {
-      await onSubmit(); // call parent function (API)
-    } catch (err) {
-      // optional: handle error inside modal
+      await onSubmit();
     } finally {
-      setIsLoading(false); // stop loader
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-[450px] relative transition-all duration-300 ease-in-out transform scale-100 animate-slide-in">
-
+    <div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center
+                 z-50 px-4 sm:px-0"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white w-full max-w-md sm:max-w-[450px]
+                   p-5 sm:p-6 rounded-lg shadow-lg relative
+                   transition-all duration-300 transform scale-100
+                   animate-slide-in"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Close Button */}
         <button
           onClick={onClose}
-          disabled={isLoading} // disable while loading
-          className={`absolute top-2 right-6 text-gray-500 hover:text-black text-2xl ${
-            isLoading ? "cursor-not-allowed opacity-50" : ""
-          }`}
+          disabled={isLoading}
+          className={`absolute top-2 right-4 sm:right-6 text-gray-500
+                      hover:text-black text-2xl
+                      ${isLoading ? "cursor-not-allowed opacity-50" : ""}`}
         >
           ×
         </button>
 
         {/* Title */}
-        <h2 className="text-base font-semibold mb-4">{title}</h2>
+        <h2 className="text-base sm:text-lg font-semibold mb-4">
+          {title}
+        </h2>
 
         {/* Input Label */}
-        <p className="mb-2 text-black font-semibold text-sm">{label}</p>
+        <p className="mb-2 text-black font-semibold text-sm">
+          {label}
+        </p>
 
         {/* Input */}
         <input
-          className="border rounded-md w-full px-3 text-sm py-2 mb-4"
+          className="border rounded-md w-full px-3 py-2 text-sm
+                     mb-5 focus:outline-none focus:ring-2 focus:ring-black/20"
           placeholder={placeholder}
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          disabled={isLoading} // prevent typing while loading
+          disabled={isLoading}
         />
 
         {/* Buttons */}
-        <div className="flex justify-end gap-3">
+        <div className="flex flex-col-reverse sm:flex-row justify-end gap-3">
           <button
             onClick={onClose}
             disabled={isLoading}
-            className={`px-4 py-2 border rounded-lg ${
-              isLoading ? "cursor-not-allowed opacity-50" : ""
-            }`}
+            className={`w-full sm:w-auto px-4 py-2 border rounded-lg
+                        ${isLoading ? "cursor-not-allowed opacity-50" : ""}`}
           >
             Cancel
           </button>
 
           <button
             onClick={handleSubmit}
-            disabled={isLoading || !value.trim()} // disable empty value
-            className={`px-4 py-2 bg-black text-white rounded-lg flex items-center gap-2 justify-center ${
-              isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-gray-900"
-            }`}
+            disabled={isLoading || !value.trim()}
+            className={`w-full sm:w-auto px-4 py-2 bg-black text-white
+                        rounded-lg flex items-center gap-2 justify-center
+                        ${isLoading
+                          ? "opacity-70 cursor-not-allowed"
+                          : "hover:bg-gray-900"}`}
           >
             {isLoading ? (
               <>
@@ -87,12 +100,12 @@ export default function Modal({
                     r="10"
                     stroke="currentColor"
                     strokeWidth="4"
-                  ></circle>
+                  />
                   <path
                     className="opacity-75"
                     fill="currentColor"
                     d="M4 12a8 8 0 018-8v8H4z"
-                  ></path>
+                  />
                 </svg>
                 Please wait...
               </>
